@@ -1,18 +1,42 @@
 <?php
-class Person
+class TodoItem
 {
-    public $first_name, $last_name, $initials;
-}
-function create_person($first, $last)
-{
-    return [
-        'first_name' => $first,
-        'last_name' => $last,
-        'initials' => $first[0] . $last[0]
-    ];
+    private $name, $is_complete;
+
+    function change_name($new_name)
+    {
+        $this->name = $new_name;
+    }
+
+    function mask_as_done()
+    {
+        $this->is_complete = true;
+    }
 }
 
-$person = create_person('naufal', 'aziz');
-$updated_person = create_person('ananta', $person['last_name']);
+class TodoList
+{
+    private $items;
 
-print_r($updated_person);
+    function add_item($item)
+    {
+        $this->items[] = $item;
+    }
+}
+
+$todo_item_1 = [
+    'name' => 'Learn functional programming',
+    'is_completed' => false
+];
+
+$todo_item_2 = [
+    'name' => 'Get a great job',
+    'is_completed' => false
+];
+
+$todo_list = [
+    $todo_item_1,
+    $todo_item_2
+];
+
+function get_completed_items($list) {}
