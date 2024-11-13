@@ -1,7 +1,9 @@
 <?php
-$add = fn($x, $y) => $x + $y;
+// $add = fn($x, $y) => $x + $y;
+$add = fn($x) => fn($y) => $x + $y;
 
-$subtract = fn($x, $y) => $x - $y;
+// $subtract = fn($x, $y) => $x - $y;
+$subtract = fn($x) => fn($y) => $x - $y;
 
 // $combine_2_and_3 = function ($func) {
 //     return $func(2, 3);
@@ -9,9 +11,11 @@ $subtract = fn($x, $y) => $x - $y;
 $x = 2;
 $y = 3;
 
+echo $subtract($x)($y) . "\n";
+
 $combine_2_and_3 = fn($func) => $func($x, $y);
 
-echo $combine_2_and_3($subtract) . "\n";
+// echo $combine_2_and_3($subtract($x)($y)) . "\n";
 
 $combine_names = fn($func) => $func('naufal', 'aziz');
 
