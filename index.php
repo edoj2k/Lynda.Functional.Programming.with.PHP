@@ -1,34 +1,24 @@
 <?php
+$double = fn($x) => $x * 2;
 
-function my_function()
-{
-    echo "hello!\n";
+$subtract_one = fn($x) => $x - 1;
+
+$add_three = fn($x) => $x + 3;
+
+$my_number = 42;
+
+// $doubled = $double($my_number);
+// $doubled_minus_one = $subtract_one($doubled);
+// $plus_three = $add_three($doubled_minus_one);
+
+$function_array = [
+    $double,
+    $subtract_one,
+    $add_three
+];
+
+for ($i = 0; $i < count($function_array); $i++) {
+    $my_number = $function_array[$i]($my_number);
 }
 
-$my_function = function ($name) {
-    echo "hello $name!\n";
-};
-
-$my_function_2 = $my_function;
-$my_function_2("naufal");
-
-$environtment = 'dev';
-
-$fetch_data_real = function () {
-    echo "fetching data...\n";
-};
-
-$fetch_data_fake = function () {
-    return [
-        'name' => 'Rajwa Aliyya',
-        'age' => 13,
-        'job' => 'student'
-    ];
-};
-
-$fetch_data = ($environtment === 'prod'
-    ? $fetch_data_fake
-    : $fetch_data_real
-);
-
-print_r($fetch_data());
+echo $my_number . "\n";
