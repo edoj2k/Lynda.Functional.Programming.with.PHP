@@ -1,36 +1,18 @@
 <?php
-
-use FFI\ParserException;
-
 class Person
 {
-    public $name, $age;
-
-    function __construct($name, $age)
-    {
-        $this->name = $name;
-        $this->age = $age;
-    }
-
-    function increase_age()
-    {
-        $this->age += 2;
-    }
+    public $first_name, $last_name, $initials;
 }
-
-$person = [
-    'name' => 'naufal',
-    'age' => 17
-];
-
-function change_name($person, $new_name)
+function create_person($first, $last)
 {
     return [
-        'name' => $new_name,
-        'age' => $person['age']
+        'first_name' => $first,
+        'last_name' => $last,
+        'initials' => $first[0] . $last[0]
     ];
 }
 
-$test = change_name($person, 'rafi');
+$person = create_person('naufal', 'aziz');
+$updated_person = create_person('ananta', $person['last_name']);
 
-echo $test['name'];
+print_r($updated_person);
