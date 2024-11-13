@@ -1,24 +1,26 @@
 <?php
-$double = fn($x) => $x * 2;
+$add = fn($x, $y) => $x + $y;
 
-$subtract_one = fn($x) => $x - 1;
+$subtract = fn($x, $y) => $x - $y;
 
-$add_three = fn($x) => $x + 3;
+// $combine_2_and_3 = function ($func) {
+//     return $func(2, 3);
+// };
+$x = 2;
+$y = 3;
 
-$my_number = 42;
+$combine_2_and_3 = fn($func) => $func($x, $y);
 
-// $doubled = $double($my_number);
-// $doubled_minus_one = $subtract_one($doubled);
-// $plus_three = $add_three($doubled_minus_one);
+echo $combine_2_and_3($subtract) . "\n";
 
-$function_array = [
-    $double,
-    $subtract_one,
-    $add_three
-];
+$combine_names = fn($func) => $func('naufal', 'aziz');
 
-for ($i = 0; $i < count($function_array); $i++) {
-    $my_number = $function_array[$i]($my_number);
-}
+$append_with_space = fn($str_1, $str_2) => $str_1 . " " . $str_2;
 
-echo $my_number . "\n";
+$government_form_notation = fn($str_1, $str_2) => strtoupper($str_2) . ", " . strtoupper($str_1);
+
+// echo $combine_names($append_with_space) . "\n";
+echo $combine_names(fn($str_1, $str_2) => $str_1 . " " . $str_2) . "\n";
+
+// echo $combine_names($government_form_notation) . "\n";
+echo $combine_names(fn($str_1, $str_2) => strtoupper($str_2) . ", " . strtoupper($str_1)) . "\n";
