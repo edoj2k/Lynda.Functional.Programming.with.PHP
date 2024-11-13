@@ -1,30 +1,34 @@
 <?php
-// $add = fn($x, $y) => $x + $y;
-$add = fn($x) => fn($y) => $x + $y;
 
-// $subtract = fn($x, $y) => $x - $y;
-$subtract = fn($x) => fn($y) => $x - $y;
-
-// $combine_2_and_3 = function ($func) {
-//     return $func(2, 3);
+// $create_printer = function () {
+//     return function () {
+//         echo "Hello functional!\n";
+//     };
 // };
-$x = 2;
-$y = 3;
 
-echo $subtract($x)($y) . "\n";
+$create_printer = fn() => fn() => "Hello functional!\n";
 
-$combine_2_and_3 = fn($func) => $func($x, $y);
+$my_printer = $create_printer();
+echo $my_printer();
 
-// echo $combine_2_and_3($subtract($x)($y)) . "\n";
+// $double = fn($x) => $x * 2;
+// $triple = fn($x) => $x * 3;
+// $quadruple = fn($x) => $x * 4;
 
-$combine_names = fn($func) => $func('naufal', 'aziz');
+// $create_multiplier = function ($y) {
+//     return function ($x) use ($y) {
+//         return $x * $y;
+//     };
+// };
 
-$append_with_space = fn($str_1, $str_2) => $str_1 . " " . $str_2;
+$create_multiplier = fn($y) => fn($x) => $x * $y;
 
-$government_form_notation = fn($str_1, $str_2) => strtoupper($str_2) . ", " . strtoupper($str_1);
+$double = $create_multiplier(2);
+$triple = $create_multiplier(3);
+$quadruple = $create_multiplier(4);
 
-// echo $combine_names($append_with_space) . "\n";
-echo $combine_names(fn($str_1, $str_2) => $str_1 . " " . $str_2) . "\n";
+echo $create_multiplier(2)(3) . "\n";
 
-// echo $combine_names($government_form_notation) . "\n";
-echo $combine_names(fn($str_1, $str_2) => strtoupper($str_2) . ", " . strtoupper($str_1)) . "\n";
+echo $double(3) . "\n";
+echo $triple(3) . "\n";
+echo $quadruple(3) . "\n";
