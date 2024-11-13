@@ -1,42 +1,34 @@
 <?php
-class TodoItem
+
+function my_function()
 {
-    private $name, $is_complete;
-
-    function change_name($new_name)
-    {
-        $this->name = $new_name;
-    }
-
-    function mask_as_done()
-    {
-        $this->is_complete = true;
-    }
+    echo "hello!\n";
 }
 
-class TodoList
-{
-    private $items;
+$my_function = function ($name) {
+    echo "hello $name!\n";
+};
 
-    function add_item($item)
-    {
-        $this->items[] = $item;
-    }
-}
+$my_function_2 = $my_function;
+$my_function_2("naufal");
 
-$todo_item_1 = [
-    'name' => 'Learn functional programming',
-    'is_completed' => false
-];
+$environtment = 'dev';
 
-$todo_item_2 = [
-    'name' => 'Get a great job',
-    'is_completed' => false
-];
+$fetch_data_real = function () {
+    echo "fetching data...\n";
+};
 
-$todo_list = [
-    $todo_item_1,
-    $todo_item_2
-];
+$fetch_data_fake = function () {
+    return [
+        'name' => 'Rajwa Aliyya',
+        'age' => 13,
+        'job' => 'student'
+    ];
+};
 
-function get_completed_items($list) {}
+$fetch_data = ($environtment === 'prod'
+    ? $fetch_data_fake
+    : $fetch_data_real
+);
+
+print_r($fetch_data());
