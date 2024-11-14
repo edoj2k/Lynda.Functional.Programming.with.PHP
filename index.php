@@ -1,16 +1,10 @@
 <?php
 
-$numbers = [1, 2, 3, 4, 5, 6];
+$letters = ['a', 'b', 'c', 'd', 'e'];
+$numbers = [1, 2, 3, 4, 5];
 
-$even_numbers = [];
-for ($i = 0; $i < count($numbers); $i++) {
-    if ($numbers[$i] % 2 == 0) {
-        $even_numbers[] = $numbers[$i];
-    }
-}
+// $pairs = array_map(fn($letter, $number) => "$letter$number", $letters, $numbers);
 
-print_r($even_numbers);
+$pairs = array_map(fn($letter, $index) => "The letter at position $index is $letter", $letters, array_keys($letters));
 
-$even = array_values(array_filter($numbers, fn($x) => $x % 2 == 0));
-
-print_r($even);
+print_r($pairs);
