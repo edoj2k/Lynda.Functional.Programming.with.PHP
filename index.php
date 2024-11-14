@@ -1,10 +1,14 @@
 <?php
 
-$letters = ['a', 'b', 'c', 'd', 'e'];
-$numbers = [1, 2, 3, 4, 5];
+$numbers = [20, 5, 6, 8, 3, 11];
 
-// $pairs = array_map(fn($letter, $number) => "$letter$number", $letters, $numbers);
+function array_sort($array, ...$rest)
+{
+    sort($array, ...$rest);
+    return $array;
+}
 
-$pairs = array_map(fn($letter, $index) => "The letter at position $index is $letter", $letters, array_keys($letters));
+$numbers_sorted = array_sort($numbers);
 
-print_r($pairs);
+print_r($numbers) . "\n";
+print_r($numbers_sorted) . "\n";
