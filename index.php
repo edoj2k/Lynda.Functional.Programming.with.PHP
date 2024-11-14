@@ -2,15 +2,15 @@
 
 $numbers = [1, 2, 3, 4, 5, 6];
 
-$doubled_numbers = [];
+$even_numbers = [];
 for ($i = 0; $i < count($numbers); $i++) {
-    $doubled = $numbers[$i] * 2;
-    $doubled_numbers[] = $doubled;
+    if ($numbers[$i] % 2 == 0) {
+        $even_numbers[] = $numbers[$i];
+    }
 }
 
-print_r($doubled_numbers);
+print_r($even_numbers);
 
-$double = fn($x) => $x * 2;
-$result = array_map($double, $numbers);
+$even = array_values(array_filter($numbers, fn($x) => $x % 2 == 0));
 
-print_r($result);
+print_r($even);
