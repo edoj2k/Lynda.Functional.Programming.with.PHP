@@ -1,24 +1,39 @@
 <?php
-// $create_function = function () {
-//     $x = 5;
-//     return function () use ($x) {
-//         echo "x is $x \n";
+
+// $divide = function ($x, $y) {
+//     if ($y == 0) {
+//         echo "Cannot divide by zero!\n";
+//         return null;
+//     } else {
+//         return $x / $y;
+//     }
+// };
+
+// $divide = fn($x, $y) => $y == 0 ? "Cannot divide by zero!\n" : $x / $y;
+$divide = fn($x, $y) => $y == 0 ? "Cannot divide by zero!\n" : $x / $y;
+
+// $result = $divide(6, 3);
+// echo $result . "\n";
+
+$numbers = [1, 2, 3, 4, 5];
+$square = array_map(fn($n) => $n * $n, $numbers);
+$evenNumbers = array_filter($numbers, fn($n) => $n % 2 === 0);
+
+print_r($square);
+print_r($evenNumbers);
+
+// $second_arg_isnt_zero = function ($func) {
+//     return function (...$args) use ($func) {
+//         if ($args[1] == 0) {
+//             echo "Cannot divide by zero!\n";
+//             return null;
+//         }
+//         return $func(...$args);
 //     };
 // };
 
-$create_function = fn($x = 5) => fn() => "x is $x \n";
+$second_arg_isnt_zero = fn($func) => fn(...$args) => $args[1] == 0 ? "Cannot divide by zero!\n" : $func(...$args);
 
-$function = $create_function();
-echo $function();
+$divide_safe = $second_arg_isnt_zero($divide);
 
-// $create_printer = function () {
-//     $my_favorite_number = 42;
-//     return function () use ($my_favorite_number) {
-//         echo "My favorite number is $my_favorite_number \n";
-//     };
-// };
-
-$create_printer = fn($my_favorite_number = 42) => fn() => "My favorite number is $my_favorite_number \n";
-
-$my_printer = $create_printer();
-echo $my_printer();
+echo $divide_safe(10, 0) . "\n";
