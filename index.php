@@ -1,27 +1,13 @@
 <?php
 
-// $map = function ($func, $array) {
-//     $new_array = [];
+$add = fn($x, $y, $z) => $x + $y + $z;
 
-//     for ($i = 0; $i < count($array); $i++) {
-//         $result = $func($array[$i]);
-//         $new_array[] = $result;
-//     }
-//     return $new_array;
-// };
+$add_partial = fn($x) => fn($y) => fn($z) => $add($x, $y, $z);
 
-$map = function ($func, $array) {
-    return array_reduce(
-        $array,
-        fn($carry, $item) => [...$carry, $func($item)],
-        [],
-    );
-};
+// $add_5 = $add_partial(5);
+// $add_5_and_6 = $add_5(6);
+// $sum = $add_5_and_6(7);
 
-$numbers = [1, 2, 3, 4];
-$result = $map(
-    fn($x) => $x * 3,
-    $numbers
-);
+$sum  = $add_partial(5)(6)(7);
 
-print_r($result);
+echo $sum . "\n";
