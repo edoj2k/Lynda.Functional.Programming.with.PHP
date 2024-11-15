@@ -1,13 +1,25 @@
 <?php
 
-$add = fn($x, $y, $z) => $x + $y + $z;
+function count_down($x)
+{
+    if ($x < 0) {
+        echo "Blast off!\n";
+        return;
+    }
+    echo $x . "...\n";
+    count_down($x - 1);
+}
 
-$add_partial = fn($x) => fn($y) => fn($z) => $add($x, $y, $z);
+count_down(10);
 
-// $add_5 = $add_partial(5);
-// $add_5_and_6 = $add_5(6);
-// $sum = $add_5_and_6(7);
+function count_up($x, $max)
+{
+    if ($x > $max) {
+        echo "Done.\n";
+        return;
+    }
+    echo $x . "...\n";
+    count_up($x + 1, $max);
+}
 
-$sum  = $add_partial(5)(6)(7);
-
-echo $sum . "\n";
+count_up(0, 10);
