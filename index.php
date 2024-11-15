@@ -1,14 +1,41 @@
 <?php
 
-$numbers = [20, 5, 6, 8, 3, 11];
+$employees = [
+    [
+        'name' => 'Naufal',
+        'years_of_service' => 18,
+    ],
+    [
+        'name' => 'Rafi',
+        'years_of_service' => 15
+    ],
+    [
+        'name' => 'Sulthan',
+        'years_of_service' => 13
+    ],
+    [
+        'name' => 'Rajwa',
+        'years_of_service' => 11
+    ]
+];
 
-function array_sort($array, ...$rest)
+function array_usort($array, $comparator_func)
 {
-    sort($array, ...$rest);
+    usort($array, $comparator_func);
     return $array;
 }
 
-$numbers_sorted = array_sort($numbers);
+$years_of_service_comparator = function ($a, $b) {
+    // if ($a['years_of_service'] < $b['years_of_service']) {
+    //     return -1;
+    // } else if ($a['years_of_service'] > $b['years_of_service']) {
+    //     return 1;
+    // } else {
+    //     return 0;
+    // }
+    return $a['years_of_service'] - $b['years_of_service'];
+};
 
-print_r($numbers) . "\n";
-print_r($numbers_sorted) . "\n";
+$sorted_employees = array_usort($employees, $years_of_service_comparator);
+
+print_r($sorted_employees);
