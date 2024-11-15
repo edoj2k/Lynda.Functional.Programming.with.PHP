@@ -1,48 +1,27 @@
 <?php
 
-$employees = [
-    [
-        'name' => 'Naufal',
-        'age' => 18,
-        'salary' => 90000,
-        'job_title' => 'developer'
-    ],
-    [
-        'name' => 'Rafi',
-        'age' => 16,
-        'salary' => 110000,
-        'job_title' => 'developer'
-    ],
-    [
-        'name' => 'Sulthan',
-        'age' => 13,
-        'salary' => 35000,
-        'job_title' => 'construction worker'
-    ],
-    [
-        'name' => 'Rajwa',
-        'age' => 11,
-        'salary' => 55000,
-        'job_title' => 'digital marketing specialist'
-    ]
-];
+// $map = function ($func, $array) {
+//     $new_array = [];
 
-$developers = array_filter($employees, fn($x) => $x['job_title'] == 'developer');
-$developer_salaries = array_map(fn($x) => $x['salary'], $developers);
-$total_developer_salaries = array_reduce($developer_salaries, fn($carry, $item) => $carry + $item);
-$average_developer_salary = $total_developer_salaries / count($developer_salaries);
+//     for ($i = 0; $i < count($array); $i++) {
+//         $result = $func($array[$i]);
+//         $new_array[] = $result;
+//     }
+//     return $new_array;
+// };
 
-$non_developers = array_filter($employees, fn($x) => $x['job_title'] != 'developer');
-$non_developer_salaries = array_map(fn($x) => $x['salary'], $non_developers);
-$total_non_developer_salaries = array_reduce($non_developer_salaries, fn($carry, $item) => $carry + $item);
-$average_non_developer_salary = $total_non_developer_salaries / count($non_developer_salaries);
+$map = function ($func, $array) {
+    return array_reduce(
+        $array,
+        fn($carry, $item) => [...$carry, $func($item)],
+        [],
+    );
+};
 
-print_r($developers);
-print_r($developer_salaries);
-echo ($total_developer_salaries) . "\n";
-echo "The average developer salary is $average_developer_salary \n";
+$numbers = [1, 2, 3, 4];
+$result = $map(
+    fn($x) => $x * 3,
+    $numbers
+);
 
-print_r($non_developers);
-print_r($non_developer_salaries);
-echo ($total_non_developer_salaries) . "\n";
-echo "The average non developer salary is $average_non_developer_salary \n";
+print_r($result);
