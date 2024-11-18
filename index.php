@@ -1,67 +1,35 @@
 <?php
 
-$people_data = [
-    [
-        'full_name' => 'Ed Jhonson',
-        'age' => 28,
-        'height' => 72
-    ],
-    [
-        'full_name' => 'Jeff Ruiz',
-        'age' => 35,
-        'height' => 65
-    ],
-    [
-        'full_name' => 'Jane Price',
-        'age' => 43,
-        'height' => 60
-    ]
+$get_property = function ($key, $default, $array) {
+    if (array_key_exists($key, $array)) {
+        return $array[$key];
+    } else {
+        return $default;
+    }
+};
+
+
+$create_property_getter = fn($key, $default) =>
+fn($array) => $get_property($key, $default, $array);
+
+$get_favorite_color = $create_property_getter('favorite_color', 'none');
+
+
+$person_1 = [
+    'name' => 'Diana',
+    'age' => 53,
+    'job_title' => 'developer'
 ];
 
-$with_first_and_last_name = function ($person) {
-    return array_merge(
-        $person,
-        [
-            'first_name' => explode(' ', $person['full_name'])[0],
-            'last_name' => explode(' ', $person['full_name'])[1]
-        ]
-    );
-};
+$person_2 = [
+    'name' => 'Jim',
+    'age' => 25,
+    'job_title' => 'engineer',
+    'favorite_color' => 'light green'
+];
 
-$height_inches_to_meters = function ($person) {
-    return array_merge(
-        $person,
-        [
-            'height' => $person['height'] * 0.0254,
-        ]
-    );
-};
+$person1_favorite_color = $get_favorite_color($person_1);
+$person2_favorite_color = $get_favorite_color($person_2);
 
-$add_initials = function ($person) {
-    return array_merge(
-        $person,
-        [
-            'initials' => $person['first_name'][0] . $person['last_name'][0]
-        ],
-    );
-};
-
-$compose = function (...$funcs) {
-    return function ($data) use ($funcs) {
-        return array_reduce(
-            $funcs,
-            fn($carry, $func) => $func($carry),
-            $data,
-        );
-    };
-};
-
-$format_person = $compose(
-    $with_first_and_last_name,
-    $height_inches_to_meters,
-    $add_initials
-);
-
-$formatted_people = array_map($format_person, $people_data);
-
-print_r($formatted_people);
+echo $person1_favorite_color . "\n";
+echo $person2_favorite_color . "\n";
