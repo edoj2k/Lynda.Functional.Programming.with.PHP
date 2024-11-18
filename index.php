@@ -1,35 +1,38 @@
 <?php
 
-$get_property = function ($key, $default, $array) {
-    if (array_key_exists($key, $array)) {
-        return $array[$key];
-    } else {
-        return $default;
-    }
+$all_votes = [
+    'Harold',
+    'Jane',
+    'Harold',
+    'Ben',
+    'Jane',
+    'Jim',
+    'Arnold',
+    'Arnold',
+    'Harold',
+    'Jane',
+    'Harold',
+    'Ben',
+    'Arnold',
+    'Ben',
+    'Jane',
+    'Jane',
+    'Ben',
+    'Harold',
+    'Harold',
+    'Ben',
+    'Steve'
+];
+
+$tally_votes = function ($votes) {
+    return array_reduce(
+        $votes,
+        fn($carry, $vote) => array_merge(
+            $carry,
+            [$vote => (array_key_exists($vote, $carry) ? $carry[$vote] + 1 : 1)]
+        ),
+        [],
+    );
 };
 
-
-$create_property_getter = fn($key, $default) =>
-fn($array) => $get_property($key, $default, $array);
-
-$get_favorite_color = $create_property_getter('favorite_color', 'none');
-
-
-$person_1 = [
-    'name' => 'Diana',
-    'age' => 53,
-    'job_title' => 'developer'
-];
-
-$person_2 = [
-    'name' => 'Jim',
-    'age' => 25,
-    'job_title' => 'engineer',
-    'favorite_color' => 'light green'
-];
-
-$person1_favorite_color = $get_favorite_color($person_1);
-$person2_favorite_color = $get_favorite_color($person_2);
-
-echo $person1_favorite_color . "\n";
-echo $person2_favorite_color . "\n";
+print_r($tally_votes($all_votes));
