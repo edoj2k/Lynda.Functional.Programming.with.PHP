@@ -1,38 +1,22 @@
 <?php
 
-$all_votes = [
-    'Harold',
-    'Jane',
-    'Harold',
-    'Ben',
-    'Jane',
-    'Jim',
-    'Arnold',
-    'Arnold',
-    'Harold',
-    'Jane',
-    'Harold',
-    'Ben',
-    'Arnold',
-    'Ben',
-    'Jane',
-    'Jane',
-    'Ben',
-    'Harold',
-    'Harold',
-    'Ben',
-    'Steve'
-];
-
-$tally_votes = function ($votes) {
-    return array_reduce(
-        $votes,
-        fn($carry, $vote) => array_merge(
-            $carry,
-            [$vote => (array_key_exists($vote, $carry) ? $carry[$vote] + 1 : 1)]
-        ),
-        [],
-    );
+$call_on_value_or_array = function ($func) {
+    return function ($data) use ($func) {
+        if (is_array($data)) {
+            return array_map($func, $data);
+        }
+        return $func($data);
+    };
 };
 
-print_r($tally_votes($all_votes));
+$double = fn($x) => $x * 2;
+$double_wrapped = $call_on_value_or_array($double);
+
+$value = 4;
+$double_value = $double_wrapped($value);
+
+$array = [1, 2, 3, 4];
+$doubled_array = $double_wrapped($array);
+
+echo $double_value . "\n";
+print_r($doubled_array);
